@@ -6,6 +6,31 @@ var otherTile;
 var selectedFolder;
 var turns=0;
 
+window.addEventListener("keydown", function(event) {
+    let blankTile = document.querySelector("img[src$='9.png']");
+    let blankCoords = blankTile.id.split("-");
+    let blankRow = parseInt(blankCoords[0]);
+    let blankCol = parseInt(blankCoords[1]);
+    let tileRow = blankRow;
+    let tileCol = blankCol;
+    if (event.key === "ArrowLeft") {
+        tileCol = blankCol + 1;
+    } else if (event.key === "ArrowRight") {
+        tileCol = blankCol - 1;
+    } else if (event.key === "ArrowUp") {
+        tileRow = blankRow + 1;
+    } else if (event.key === "ArrowDown") {
+        tileRow = blankRow - 1;
+    }
+    if (tileRow >= 0 && tileRow < rows && tileCol >= 0 && tileCol < columns) {
+        let tile = document.getElementById(tileRow.toString() + "-" + tileCol.toString());
+        currTile = tile;
+        otherTile = blankTile;
+        dragEnd();
+    }
+});
+
+
 window.onload = function() {
     let folders = ["html", "css", "js"];
     let borderColors = {
@@ -34,7 +59,6 @@ window.onload = function() {
         }
     }
 }
-
 
 function dragStart(){
     currTile=this;
@@ -126,4 +150,3 @@ function isSolved() {
     }
     return true;
 }
-
