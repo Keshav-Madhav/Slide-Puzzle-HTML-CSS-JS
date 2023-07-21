@@ -8,7 +8,14 @@ var turns=0;
 
 window.onload = function() {
     let folders = ["html", "css", "js"];
+    let borderColors = {
+        "html": "#e54c21",
+        "css": "#264de4",
+        "js": "#f0db4f"
+    };
     selectedFolder = folders[Math.floor(Math.random() * folders.length)];
+    let board = document.getElementById("board");
+    board.style.borderColor = borderColors[selectedFolder];
     let imgOrder = shuffleTiles();
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {

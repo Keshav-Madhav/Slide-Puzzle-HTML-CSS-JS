@@ -11,14 +11,14 @@ body{
 #board{
     width: 60vmin;
     height: 60vmin;
-    background-color: #ef704d;
+    background-color: #000000;
     background-size: contain;
     margin: auto;
     border: 10px solid #e54c21;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 2px;
+    gap: 1px;
 }
 
 #board img{
