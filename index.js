@@ -3,16 +3,18 @@ var rows=3;
 
 var currTile;
 var otherTile;
-
+var selectedFolder;
 var turns=0;
 
-window.onload=function(){
-    let imgOrder=shuffleTiles();
-    for(let r=0;r<rows;r++){
-        for(let c=0;c<columns;c++){
-            let tile=document.createElement("img");
-            tile.id=r.toString()+"-"+c.toString();
-            tile.src = "./Assets/"+imgOrder.shift() + ".png";
+window.onload = function() {
+    let folders = ["html", "css", "js"];
+    selectedFolder = folders[Math.floor(Math.random() * folders.length)];
+    let imgOrder = shuffleTiles();
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            let tile = document.createElement("img");
+            tile.id = r.toString() + "-" + c.toString();
+            tile.src = "./Assets/" + selectedFolder + "/" + imgOrder.shift() + ".png";
 
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
@@ -25,6 +27,7 @@ window.onload=function(){
         }
     }
 }
+
 
 function dragStart(){
     currTile=this;
@@ -78,7 +81,7 @@ function dragEnd(){
     if (isSolved()) {
         let board = document.getElementById("board");
         board.innerHTML = "";
-        board.style.backgroundImage = "url('./Assets/puzzle_full.png')";
+        board.style.backgroundImage = "url('./Assets/" + selectedFolder + "/puzzle_full.png')";
         document.getElementById("turns").innerText="Puzzle completed in: "+turns+" turns.";
     }    
 }
