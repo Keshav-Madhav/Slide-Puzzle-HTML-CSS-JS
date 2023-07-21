@@ -74,7 +74,13 @@ function dragEnd(){
         otherTile.src=currImg;
         turns+=1;
         document.getElementById("turns").innerText="Turns: "+turns;
-    } 
+    }
+    if (isSolved()) {
+        let board = document.getElementById("board");
+        board.innerHTML = "";
+        board.style.backgroundImage = "url('./Assets/puzzle_full.png')";
+        document.getElementById("turns").innerText="Puzzle completed in: "+turns+" turns.";
+    }    
 }
 
 function shuffleTiles() {
@@ -96,5 +102,18 @@ function shuffleTiles() {
         }
     }
     return imgOrder;
+}
+
+function isSolved() {
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            let tile = document.getElementById(r.toString() + "-" + c.toString());
+            let expectedImgNumber = (r * columns + c + 1).toString();
+            if (!tile.src.includes(expectedImgNumber)) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
