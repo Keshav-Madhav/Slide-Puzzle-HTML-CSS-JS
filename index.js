@@ -6,6 +6,13 @@ var otherTile;
 var selectedFolder;
 var turns=0;
 
+let folders = ["html", "css", "js"];
+let borderColors = {
+    "html": "#e54c21",
+    "css": "#264de4",
+    "js": "#f0db4f"
+};
+
 window.addEventListener("keydown", function(event) {
     let blankTile = document.querySelector("img[src$='9.png']");
     let blankCoords = blankTile.id.split("-");
@@ -32,12 +39,13 @@ window.addEventListener("keydown", function(event) {
 
 
 window.onload = function() {
-    let folders = ["html", "css", "js"];
-    let borderColors = {
-        "html": "#e54c21",
-        "css": "#264de4",
-        "js": "#f0db4f"
-    };
+    setBoard();
+
+    let resetButton = document.getElementById("reset");
+    resetButton.addEventListener("click", resetGame);
+}
+
+function setBoard(){
     selectedFolder = folders[Math.floor(Math.random() * folders.length)];
     let board = document.getElementById("board");
     board.style.borderColor = borderColors[selectedFolder];
@@ -47,6 +55,10 @@ window.onload = function() {
             let tile = document.createElement("img");
             tile.id = r.toString() + "-" + c.toString();
             tile.src = "./Assets/" + selectedFolder + "/" + imgOrder.shift() + ".png";
+
+            // if (tile.src.includes("9.png")) {
+            //     tile.classList.add("blank");
+            // }
 
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
@@ -101,13 +113,16 @@ function dragEnd(){
     let isAdjacent = moveLeft || moveRight || moveDown || moveUp;
 
     if(isAdjacent){
+        // otherTile.classList.remove("blank");
+        // currTile.classList.add("blank");
+
         let currImg=currTile.src;
         let otherImg=otherTile.src;
-
         currTile.src=otherImg;
         otherTile.src=currImg;
         turns+=1;
         document.getElementById("turns").innerText="Turns: "+turns;
+        
     }
     if (isSolved()) {
         let board = document.getElementById("board");
@@ -149,4 +164,11 @@ function isSolved() {
         }
     }
     return true;
+}
+
+function resetGame() {
+    board.innerHTML="";
+    setBoard();
+    turns = 0;
+    document.getElementById("turns").innerText = turns;
 }
