@@ -6,11 +6,12 @@ var otherTile;
 var selectedFolder;
 var turns=0;
 
-let folders = ["html", "css", "js"];
+let folders = ["html", "css", "js", "python"];
 let borderColors = {
     "html": "#e54c21",
     "css": "#264de4",
-    "js": "#f0db4f"
+    "js": "#f0db4f",
+    "python": "#ffd342"
 };
 
 window.addEventListener("keydown", function(event) {
@@ -167,8 +168,9 @@ function isSolved() {
 }
 
 function resetGame() {
+    board.style.backgroundImage = "";
     board.innerHTML="";
     setBoard();
     turns = 0;
-    document.getElementById("turns").innerText = turns;
+    document.getElementById("turns").innerText = "Turns: "+turns;
 }
